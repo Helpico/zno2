@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./client
+    restart: unless-stopped
+    ports: 
+      - 8080:8080
+    # volumes:
+    #  - ./client/src:/client/src
+    #  - /client/node_modules
