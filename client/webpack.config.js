@@ -1,35 +1,52 @@
 // webpack & tailwind setup is based on https://dev.to/j45t7/webpack-tailwind-css-setup-35bm
 
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: "development",
     entry: {
-        bundle: path.resolve(__dirname, "src/index.js"),
+        index: "./src/index.js",
     },
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "[name][contenthash].js",
+        filename: "[name].bundle.js",
         clean: true,
-        assetModuleFilename: "[name][ext]",
+        // assetModuleFilename: "[name][ext]", // ???
     },
     module: {
         rules: [
             {
                 test: /\.css$/i,
+                exclude: /(node_modules)/,
                 use: ["style-loader", "css-loader", "postcss-loader"],
             },
+            {
+                test: /\.js$/i,
+                exclude: /(node_modules)/,
+                use: {
+                  loader: "babel-loader",
+                  options: {
+                    presets: [
+                      [
+                        "@babel/preset-env",
+                        { useBuiltIns: "usage", corejs: 3, targets: "defaults" },
+                      ],
+                    ],
+                  },
+                },
+              }
         ]
     },
     devServer: {
-        static: {
-            directory: path.resolve(__dirname, "dist"),
-        },
         port: 8080,
-        // open: true,
         hot: true,
-        compress: true,
-        historyApiFallback: true,
-    }
+        contentBase: "./dist",
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: "Output Management",
+            template: "./src/index.html"
+        }),
+    ],
 };
