@@ -11,8 +11,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].bundle.js",
-        clean: true,
-        // assetModuleFilename: "[name][ext]", // ???
     },
     module: {
         rules: [
@@ -41,12 +39,8 @@ module.exports = {
     devServer: {
         port: 8080,
         hot: true,
-        contentBase: "./dist",
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            title: "Output Management",
-            template: "./src/index.html"
-        }),
+        new HtmlWebpackPlugin({ template: "./src/index.html" }),
     ],
 };
