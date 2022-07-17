@@ -5,9 +5,11 @@ services:
     container_name: frontend
     build:
       context: ./client
+      args:
+        - FRONTEND_DEV_PORT=${FRONTEND_DEV_PORT}
     restart: unless-stopped
     ports: 
-      - 8080:8080
+      - ${FRONTEND_DEV_PORT}:${FRONTEND_DEV_PORT}
     volumes:
       - ./client/src:/client/src
     # - /client/node_modules
