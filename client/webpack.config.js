@@ -40,8 +40,9 @@ module.exports = {
       port: 8080,
       hot: "only",
       static: {
-        directory: path.resolve(__dirname, "dist"),
-      }
+        directory: path.join(__dirname, './'),
+        serveIndex: true,
+      },
     },
     plugins: [
       new HtmlWebpackPlugin({ template: "./src/index.html" }),
