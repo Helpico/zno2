@@ -6,14 +6,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: "development",
     entry: {
-        index: "./src/index.js",
+      index: "./src/index.js",
     },
     output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "[name].bundle.js",
+      path: path.resolve(__dirname, "dist"),
+      filename: "[name].bundle.js",
     },
     module: {
-        rules: [
+      rules: [
             {
                 test: /\.css$/i,
                 exclude: /(node_modules)/,
@@ -37,10 +37,13 @@ module.exports = {
         ]
     },
     devServer: {
-        port: 8080,
-        hot: true,
+      port: 8080,
+      hot: "only",
+      static: {
+        directory: path.resolve(__dirname, "dist"),
+      }
     },
     plugins: [
-        new HtmlWebpackPlugin({ template: "./src/index.html" }),
+      new HtmlWebpackPlugin({ template: "./src/index.html" }),
     ],
 };
